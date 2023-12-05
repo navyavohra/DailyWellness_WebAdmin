@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div align="center">
+    <h1>VR Media</h1>
+  </div>
+  <div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Update VR media</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         
+            <div align="center">
+              <p>Please choose what you want to upload.</p>
+
+              <button class="btn btn-primary" (click)="Choice('Video')">Video</button>
+
+              OR&nbsp;
+
+              <button class="btn btn-primary" (click)="Choice('Image')">Image</button>
+              <br>
+            </div>
+            <div *ngIf="choice=='Video'">
+              <form role="form" [formGroup]="UpdateVideoForm">
+              <label for="inputGroupFile01">Thumbnail</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                  <input type="file" name="thumbUrl" (change)="SelectThumbs($event)" accept="image/*"
+                    [ngClass]="{'is-invalid': fvalupdatevideo['thumbUrl'].errors}"
+                    formControlName="thumbUrl" class="custom-file-input " id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+              <div *ngIf="fvalupdatevideo['thumbUrl'].errors && submitted" class="invalid-feedback">Thumbnail file is
+                required.</div>
+              <label for="title">Upload a new video</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                  <input type="file" name="video" id="video" [ngClass]="{ 'is-invalid': fvalupdatevideo['video'].errors }"
+                    (change)="SelectFile($event)" accept="video/mp4,video/x-m4v,video/*" formControlName="video"
+                    class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+              <div *ngIf="fvalupdatevideo['video'].errors && submitted" class="invalid-feedback">Video is required.</div>
+              </form>
+            </div>
+            <div *ngIf="choice=='Image'">
+              <form role="form" [formGroup]="UpdateImageForm">
+              <label for="title">Upload a new image</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                  <input type="file" name="video" id="video" [ngClass]="{ 'is-invalid': fvalupdateimage['video'].errors }"
+                    (change)="SelectFile($event)" accept="image/*" formControlName="video" class="custom-file-input"
+                    id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+              <div *ngIf="fvalupdateimage['video'].errors && submitted" class="invalid-feedback">Image is required.</div>
+              </form>
+            </div>
+            <div *ngIf="progress != undefined" class="progress">
+              <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                [style.width]="(progress | async) + '%'" [attr.aria-valuenow]="(progress | async)" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="Close()">Close</button>
+          <button type="button" class="btn btn-primary" [disabled]="!UpdateImageForm.valid && !UpdateVideoForm.valid" data-toggle="modal"
+            data-target="#ProgressModal" (click)="updateVideos()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade " id="AddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add VR Media</h5>
+        </div>
+        <div class="modal-body">
+         
+            <div align="center">
+              <p>Please choose what you want to upload.</p>
+
+              <button class="btn btn-primary" (click)="Choice('Video')">Video</button>
+
+              OR&nbsp;
+
+              <button class="btn btn-primary" (click)="Choice('Image')">Image</button>
+              <br>
+            </div>
+            <div *ngIf="choice=='Video'">
+              <form role="form" [formGroup]="AddVideoForm">
+              <label for="inputGroupFile01">Thumbnail</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                  <input type="file" name="thumbUrl" (change)="SelectThumbs($event)" accept="image/*"
+                    [ngClass]="{'is-invalid': fvaladdvideo['thumbUrl'].errors} || {'is-valid': !fvaladdvideo['thumbUrl'].errors}"
+                    formControlName="thumbUrl" class="custom-file-input " id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01" required>
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+              <div *ngIf="fvaladdvideo['thumbUrl'].errors && submitted" class="invalid-feedback">Thumbnail file is
+                required.</div>
+              <label for="inputGroupFile01">Video</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                  <input type="file" name="video" (change)="SelectFile($event)" accept="video/mp4,video/x-m4v,video/*"
+                    [ngClass]="{'is-invalid': fvaladdvideo['video'].errors} || {'is-valid': !fvaladdvideo['video'].errors}"
+                    formControlName="video" class="custom-file-input " id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01" required>
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+              <div *ngIf="fvaladdvideo['video'].errors && submitted" class="invalid-feedback">Audio file is required.</div>
+              <div class="valid-feedback">Selected File</div>
+              </form>
+            </div>
+            <div *ngIf="choice=='Image'">
+              <form role="form" [formGroup]="AddImageForm">
+              <label for="inputGroupFile01">Image</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                  <input type="file" name="video" (change)="SelectFile($event)" accept="image/*"
+                    [ngClass]="{'is-invalid': fvaladdimage['video'].errors} || {'is-valid': !fvaladdimage['video'].errors}"
+                    formControlName="video" class="custom-file-input " id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01" required>
+                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+              </div>
+              <div *ngIf="fvaladdimage['video'].errors && submitted" class="invalid-feedback">Audio file is required.</div>
+              <div class="valid-feedback">Selected File</div>
+              </form>
+            </div>
+
+            <div *ngIf="progress != undefined" class="progress">
+              <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                [style.width]="(progress | async) + '%'" [attr.aria-valuenow]="(progress | async)" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="Close()">Close</button>
+          <button type="button" class="btn btn-primary" [disabled]="!AddImageForm.valid && !AddVideoForm.valid " data-toggle="modal"
+            data-target="#ProgressModal" (click)="addVideos()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to delete this video?</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="CancelDelete()" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary" (click)="ConfirmDelete()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="SuccessModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{successMessage}}</h5>
+        </div>
+        <div align="center" style="padding: 5px;">
+          <button type="button" class="btn btn-secondary" (click)="Reload()" data-dismiss="modal">OK</button>&nbsp;
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div align="center">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#AddModal"> Add Videos </button>
+  </div>
+  <br>
+  <div align="center">
+    <div class="table-div shadow-lg mb-5 bg-white">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Video</th>
+            <th>Thumburl</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let videos of resultdata">
+            <td>{{videos.isVideo}}</td>
+          <td><a *ngIf="videos.thumb" style="float: right;" href="{{videos.thumb}}" target="_blank"><button class="btn btn-primary"><i class="fa fa-eye"
+              aria-hidden="true"></i>Thumbnail</button></a> &nbsp; {{videos.thumb}}</td>
+            <!-- <td>{{videos.url}}</td> -->
+            <td>
+              <div class="btn-group">
+
+
+                <a href="{{videos.url}}" target="_blank"><button class="btn btn-primary"><i class="fa fa-eye"
+                      aria-hidden="true"></i></button></a>
+                &nbsp;
+                <button class="btn btn-danger" (click)="deleteVideos(videos.id)" data-toggle="modal"
+                  data-target="#DeleteModal"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                &nbsp;
+                <button class="btn btn-primary" (click)="getVideosbyId(videos.id)" data-toggle="modal"
+                  data-target="#UpdateModal"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
