@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div align="center">
+    <div class="col-8">
+      <nav *ngIf="username" class="navbar navbar-expand-lg navbar-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="btnActive==='home'" (click)="isActive('home')" href="#" [routerLink]="['/home']"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="btnActive==='yoga_videos'" (click)="isActive('yoga_videos')" href="#" [routerLink]="['/yoga_videos']"><i class="fa fa-yoast" aria-hidden="true"></i> Yoga Videos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="btnActive==='relax_media'" (click)="isActive('relax_media')" href="#" [routerLink]="['/relax_media']"><i class="fa fa-television" aria-hidden="true"></i> Relax Media</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="btnActive==='vr_media'" (click)="isActive('vr_media')" href="#" [routerLink]="['/vr_media']"><i class="fa fa-television" aria-hidden="true"></i> VR Media</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="btnActive==='quotes'" (click)="isActive('quotes')" href="#" [routerLink]="['/quotes']"><i class="fa fa-book" aria-hidden="true"></i> Quotes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="btnActive==='meditation_audio'" (click)="isActive('meditation_audio')" href="#" [routerLink]="['/meditation_audio']"><i class="fa fa-headphones" aria-hidden="true"></i> Meditation Audio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="btnActive==='courses'" (click)="isActive('courses')" href="#" [routerLink]="['/courses']"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Courses</a>
+            </li>
+          </ul>
+        </div>
+        <div class="nav-item dropdown">
+          <button class="btn btn-primary nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" (click)="Logout()">Logout</a>
+          </div>
+        </div>
+       
+      </nav>
+    </div>
+  </div>
+ 
+  <router-outlet></router-outlet> 
+</body>
+</html>
