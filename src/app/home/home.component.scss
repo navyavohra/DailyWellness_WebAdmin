@@ -1,0 +1,61 @@
+img, .carousel{
+    border-radius: 15px;
+}
+div{
+    padding: 2%;
+}
+.Text{
+    font-family:'Trebuchet MS';
+    font-weight: bolder;
+    border: 4px solid burlywood;
+    border-radius: 15px;
+    background-color: whitesmoke;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.Text2{
+    position: relative;
+    font-family:'Trebuchet MS';
+    font-weight: bolder;
+    border: 4px solid burlywood;
+    border-radius: 0 15px 15px 0 ;
+    background-color: whitesmoke;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.Text2:before,
+.Text2:after {
+    content: "";
+    position: absolute;
+
+    height: 10px;
+    width: 20px;
+
+    bottom: 0;
+}
+
+.Text2:after {
+    left: -30px;
+    top : -4px;
+    border-radius:  0 5px 0  0;
+    -moz-border-radius:  0 5px 0  0;
+    -webkit-border-radius:  0 5px  0  0;
+
+    -webkit-box-shadow: 10px 0  0  0  burlywood;
+    box-shadow: 10px 0  0  0  burlywood;
+}
+
+.Text2:before {
+    left: -30px;
+    bottom: -5px;
+    border-radius: 0 0 5px 0;
+    -moz-border-radius: 0 0 5px 0;
+    -webkit-border-radius: 0 0 5px 0;
+
+    -webkit-box-shadow: 10px 0 0 0 burlywood;
+    box-shadow: 10px 0 0 0 burlywood;
+}
+h1{
+    font-family:'Trebuchet MS';
+    font-weight: bolder;
+    font-size: 400%;
+    color:#876ec2 ;
+  }
