@@ -1,0 +1,82 @@
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+
+}
+
+//thead, tbody { display: block; }
+
+th {
+  text-align: center;
+  padding: 8px;
+  //word-break:break;
+}
+
+td {
+  text-align: left;
+  padding: 8px;
+  word-break: break;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+.modal-header{
+  background-color: #876ec2;
+  color: white;
+  border-radius: 10px;
+}
+.modal-content{
+  border-radius: 15px;
+  border: 3px solid burlywood;
+}
+h1{
+  font-family:'Trebuchet MS';
+  font-weight: bolder;
+  font-size: 400%;
+  color:#876ec2 ;
+}
+button {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background-color: #876ec2;
+  color: white;
+  border: none;
+
+}
+
+.table-div {
+  overflow: auto;
+  max-height: 600px;
+  width: fit-content;
+  border: 3px solid burlywood;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: azure;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background: beige;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  background: azure;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  background: #AA96DA;
+  ;
+}
